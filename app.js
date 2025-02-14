@@ -1,9 +1,15 @@
 const express = require("express");
+const path = require("node:path");
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("its working");
-});
+const indexRouter = require("./routes/indexRouter");
+const moviesRouter = require("./routes/moviesRouter");
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+app.use("/movies", moviesRouter);
+app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 3000;
 
